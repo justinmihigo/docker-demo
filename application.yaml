@@ -8,7 +8,7 @@ spec:
     namespace: default
     server: https://kubernetes.default.svc
   source:
-    path: manifest
+    path: manifests
     repoURL: 'https://github.com/justinmihigo/docker-demo'
     targetRevision: main
   project: default
