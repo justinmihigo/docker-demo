@@ -35,8 +35,8 @@ jobs:
       run: |
         sed -i 's#image: .*#image: ${{ secrets.DOCKERHUB_USERNAME }}/python-demo:${{ github.run_number }}#g' manifests/deployment.yaml
         git config --local user.email "mihigojustin29@gmail.com"
-        git config --local user.name "${{ github.actor }}"
+        git config --local user.name "justinmihigo"
 
         git add manifests/deployment.yaml
         git commit -m "Update image version to workflow #${{ github.run_number }}"
-        git push https://x-access-token:${{ secrets.PAT }}@github.com/${{ github.actor }}/docker-demo.git main
+        git push https://x-access-token:${{ secrets.PAT }}@github.com/justinmihigo/docker-demo.git main
