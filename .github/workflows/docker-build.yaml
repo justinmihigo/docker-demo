@@ -5,12 +5,12 @@ on:
     branches:
       - main
     paths-ignore:
-      - 'manifest/*.yaml'
+      - 'manifests/*.yaml'
   pull_request:
     branches:
       - main
     paths-ignore:
-      - 'manifest/*.yaml'
+      - 'manifests/*.yaml'
 
 jobs:
   build:
@@ -18,25 +18,25 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v3 
+      uses: actions/checkout@v4
 
     - name: Log in to Docker Hub
-      uses: docker/login-action@v3
+      uses: docker/login-action@v4
       with:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_ACCESS_TOKEN }}
 
     - name: Build and push Docker image
       run: |
-        docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/python-demo:${{github.run_number}} .
-      docker push ${{ secrets.DOCKERHUB_USERNAME }}/python-demo:${{github.run_number}}
+        docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/python-demo:${{ github.run_number }} .
+        docker push ${{ secrets.DOCKERHUB_USERNAME }}/python-demo:${{ github.run_number }}
 
     - name: Update Kubernetes manifest
       run: |
         sed -i 's#image: .*#image: ${{ secrets.DOCKERHUB_USERNAME }}/python-demo:${{ github.run_number }}#g' manifests/deployment.yaml
-        git config --local user.email "mihigojustin28@gmail.com"  
-        git config --local user.name "${{ github.actor }}"  
-        
-        git add manifest/deployment.yaml
+        git config --local user.email "mihigojustin29@gmail.com"
+        git config --local user.name "${{ github.actor }}"
+
+        git add manifests/deployment.yaml
         git commit -m "Update image version to workflow #${{ github.run_number }}"
         git push https://x-access-token:${{ secrets.PAT }}@github.com/${{ github.actor }}/docker-demo.git main
