@@ -1,0 +1,44 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: python-demo-ingress
+  namespace: demo1
+  annotations:
+    konghq.com/strip-path: "true"   # removes the path prefix before forwarding
+spec:
+  ingressClassName: kong
+  rules:
+  - host: demo1.localtest.me   # DNS host (you can change to your domain)
+    http:
+      paths:
+      - path: /minimal
+        pathType: Prefix
+        backend:
+          service:
+            name: python-demo-svc
+            port:
+              number: 80
+---
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: python-demo-ingress
+  namespace: demo2
+  annotations:
+    konghq.com/strip-path: "true"
+spec:
+  ingressClassName: kong
+  rules:
+  - host: demo2.localtest.me
+    http:
+      paths:
+      - path: /home
+        pathType: Prefix
+        backend:
+          service:
+            name: python-demo-svc
+            port:
+              number: 80
+
+

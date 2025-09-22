@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
       - name: python-demo
-        image: justinmihigo/python-demo:8
+        image: justinmihigo/python-demo:1.1-aarch64
         ports:
         - containerPort: 5000
