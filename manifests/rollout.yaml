@@ -1,0 +1,75 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
+metadata:
+  name: rollout-demo
+  namespace: demo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rollout-demo
+  template:
+    metadata:
+      labels:
+        app: rollout-demo
+
+    spec:
+      containers:
+      - name: rollout-demo
+        image: justinmihigo/python-demo:6
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 5000
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "250m"
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+  strategy:
+    blueGreen:
+      activeService: rollout-demo-stable
+      previewService: rollout-demo-canary
+      autoPromotionEnabled: true
+      scaleDownDelaySeconds: 30
+    # canary:
+    #   canaryService: rollout-demo-canary
+    #   stableService: rollout-demo-stable
+    #   steps:
+    #   - setWeight: 30
+    #   - analysis:
+    #       templates:
+    #       - templateName: rollout-health-check
+    #   - pause: { duration: 10s }
+    #   - setWeight: 60
+    #   - pause: { duration: 30s }
+    #   - setWeight: 100
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: rollout-demo-stable
+  namespace: demo
+spec:
+  selector:
+    app: rollout-demo
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 5000
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: rollout-demo-canary
+  namespace: demo
+spec:
+  selector:
+    app: rollout-demo
+  ports:
+  - protocol: TCP
+    port: 5000
+    targetPort: 5000
+  type: ClusterIP
