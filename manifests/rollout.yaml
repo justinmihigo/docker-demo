@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: rollout-demo
-        image: justinmihigo/python-demo:8
+        image: justinmihigo/python-demo:1.0-multi-arch
         imagePullPolicy: Always
         ports:
         - containerPort: 5000
