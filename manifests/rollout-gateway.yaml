@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
       - name: rollout-demo
-        image: justinmihigo/python-demo:6
+        image: justinmihigo/python-demo:7
         imagePullPolicy: Always
         ports:
         - containerPort: 5000
@@ -38,14 +38,14 @@ spec:
             namespace: demo
       steps:
       - setWeight: 30
-        #- analysis:
-        # templates:
-        # - templateName: rollout-success-rate
-        # - templateName: rollout-error-rate
-        # - templateName: rollout-transaction-time
-        # args:
-        # - name: application-name
-        #   value: Njk0MDU5NHxBUE18QVBQTElDQVRJT058NDM3MDcxNTg0
+      - analysis:
+        templates:
+        - templateName: rollout-success-rate
+        - templateName: rollout-error-rate
+        - templateName: rollout-transaction-time
+        args:
+        - name: application-name
+          value: Njk0MDU5NHxBUE18QVBQTElDQVRJT058NDM3MDcxNTg0
       - pause: { duration: 60s }
       - setWeight: 60
       - pause: { duration: 60s }
