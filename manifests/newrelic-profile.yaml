@@ -6,4 +6,4 @@ data:
 kind: Secret
 metadata:
   name: newrelic
-  namespace: demo
+  namespace: argo-rollouts
