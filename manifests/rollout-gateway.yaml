@@ -39,13 +39,13 @@ spec:
       steps:
       - setWeight: 30
       - analysis:
-        templates:
-        - templateName: rollout-success-rate
-        - templateName: rollout-error-rate
-        - templateName: rollout-transaction-time
-        args:
-        - name: application-name
-          value: Njk0MDU5NHxBUE18QVBQTElDQVRJT058NDM3MDcxNTg0
+          templates:
+          - templateName: rollout-success-rate
+          - templateName: rollout-error-rate
+          - templateName: rollout-transaction-time
+          args:
+          - name: application-name
+            value: Njk0MDU5NHxBUE18QVBQTElDQVRJT058NDM3MDcxNTg0
       - pause: { duration: 60s }
       - setWeight: 60
       - pause: { duration: 60s }
