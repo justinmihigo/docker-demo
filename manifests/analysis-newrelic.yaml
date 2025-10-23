@@ -1,0 +1,62 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AnalysisTemplate
+metadata:
+  name: rollout-success-rate
+  namespace: demo
+spec:
+  args:
+  - name: application-name
+  metrics:
+  - name: success-rate
+    successCondition: result.successRate.score >= 0.95
+    interval: 15s
+    count: 3
+    failureLimit: 3
+    provider:
+      newRelic:
+        profile: newrelic 
+        query: |
+          SELECT apdex(apm.service.apdex) as 'successRate' FROM Metric WHERE (entity.guid = '{{args.application-name}}')
+---
+apiVersion: argoproj.io/v1alpha1
+kind: AnalysisTemplate
+metadata:
+  name: rollout-transaction-time
+  namespace: demo
+spec:
+  args:
+  - name: application-name
+  metrics:
+          
+  - name: web-transaction
+    successCondition: result.average <= 10
+    interval: 15s
+    count: 3
+    failureLimit: 3
+    provider:
+      newRelic:
+        profile: newrelic
+        query: |
+          SELECT average(apm.service.overview.web * 1000) as 'average' FROM Metric WHERE
+          (entity.guid = '{{args.application-name}}')  LIMIT MAX SINCE 1 minute ago TIMESERIES
+---
+apiVersion: argoproj.io/v1alpha1
+kind: AnalysisTemplate
+metadata:
+  name: rollout-error-rate
+  namespace: demo
+spec:
+  args:
+  - name: application-name
+  metrics:      
+  - name: error-rate
+    successCondition: result.errorRate <= 0.2
+    interval: 15s
+    count: 3
+    failureLimit: 3
+    provider:
+      newRelic:
+        profile: newrelic
+        query: |
+          SELECT sum(apm.service.error.count['count']) / count(apm.service.transaction.duration) AS 'errorRate' FROM Metric WHERE
+          (entity.guid = '{{args.application-name}}') AND (transactionType = 'Web') LIMIT MAX TIMESERIES SINCE 1 minute AGO
