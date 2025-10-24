@@ -25,7 +25,7 @@ spec:
   - matches:
     - path:
         type: PathPrefix
-        value: /
+        value: /canary
     filters:
       - type: ExtensionRef
         extensionRef:
