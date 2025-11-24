@@ -1,0 +1,23 @@
+
+clusterRole:
+  enabled: true
+  name: k8s-guest-cluster  
+  rules:
+    - apiGroups: 
+        - ""
+      resources:
+        - "namespaces"
+        - "pods"
+      verbs:
+        - "get"
+        - "watch"
+        - "pods"
+clusterRoleBinding:
+  enabled: true
+  name: k8s-guest-cluster
+  roleRef:
+    kind: ClusterRole
+    name: k8s-guest-cluster
+  subjects:
+  - kind: Group # it can accept User, Groups and ServiceAccount
+    name: kubernetes  
