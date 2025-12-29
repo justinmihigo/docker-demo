@@ -139,7 +139,7 @@ def hello():
     <aside class="aside">
       <div class="card">
         <h3 style="margin:0 0 8px 0">Recent updates</h3>
-        <p style="margin:0 0 8px 0">• Let me see if the changes have gone through — <em>v2</em></p>
+        <p style="margin:0 0 8px 0">• Let me see if the changes have gone through now let us test the gpg keys with removing black list v2— <em>v2</em></p>
         <p style="margin:0 0 8px 0">• This is the new line added in another version.</p>
         <p class="muted" style="margin-top:12px">Tip: use your browser devtools to verify headers and routing.</p>
       </div>
