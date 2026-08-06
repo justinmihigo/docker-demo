@@ -4,5 +4,5 @@ helm:
     value: ghcr.io/justinmihigo/docker-demo
     forcestring: true
   - name: image.tag
-    value: v1.0.1-dev
+    value: v1.0.2-dev
     forcestring: true
