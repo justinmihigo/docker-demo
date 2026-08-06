@@ -11,3 +11,6 @@ COPY . .
 EXPOSE 5000
 
 CMD ["python3","app.py"]
+LABEL org.opencontainers.image.source https://github.com/justinmihigo/docker-demo
+LABEL org.opencontainers.image.description "My container image"
+LABEL org.opencontainers.image.licenses MIT
