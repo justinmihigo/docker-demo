@@ -1,0 +1,10 @@
+apiVersion: argocd-image-updater.argoproj.io/v1alpha1
+kind: ImageUpdater
+metadata:
+  name: global-annotation-bridge
+  # This must be deployed in the same namespace as your Argo CD Applications
+  namespace: argo-test 
+spec:
+  applicationRefs:
+    - namePattern: "*"
+      useAnnotations: true

@@ -1,0 +1,28 @@
+apiVersion: argocd-image-updater.argoproj.io/v1alpha1
+kind: ImageUpdater
+metadata:
+  name: global-docker-demo-updater
+  namespace: argo-test # Must match where your Argo CD Applications live
+spec:
+  # Global write-back configuration for committing changes back to Git
+  writeBackConfig:
+    method: "git"
+    gitConfig:
+      branch: "main"
+
+  applicationRefs:
+    # The "*" pattern ensures this applies to ANY Argo CD Application 
+    # in this namespace that happens to use this container image
+    - namePattern: "*"
+      images:
+        - alias: "docker-demo"
+          imageName: "ghcr.io/justinmihigo/docker-demo"
+          commonUpdateSettings:
+            updateStrategy: "latest"
+            allowTags: "regexp:^(v[0-9]?[0-9]|[0-9]?[0-9]).[0-9].*-dev$"
+            forceUpdate: true
+          # Maps to your previous .helm.image-name and .helm.image-tag annotations
+          manifestTargets:
+            helm:
+              name: "image.repository"
+              tag: "image.tag"

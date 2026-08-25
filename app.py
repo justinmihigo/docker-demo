@@ -126,7 +126,7 @@ def hello():
     <section class="hero" aria-labelledby="title">
       <div class="tag"><span class="pulse" aria-hidden="true"></span> Running in Docker / Kubernetes</div>
       <h1 id="title">Hello from Docker — served through Kubernetes!</h1>
-      <p class="lead">This is a lightweight demo service listening on <strong>port 5000</strong>. The page is intentionally minimal and responsive so you can eyeball changes quickly.</p>
+      <p class="lead">This is a lightweight demo service listening on <strong>port 5000</strong>. The page is intentionally minimal and it might be responsive so you can eyeball changes quickly.</p>
 
       <div class="meta">
         <p><strong>Status:</strong> <span style="color: #059669">Healthy</span> — routing via Kong</p>
