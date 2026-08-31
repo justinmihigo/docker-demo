@@ -131,7 +131,7 @@ def hello():
       <div class="meta">
         <p><strong>Status:</strong> <span style="color: #059669">Healthy</span> — routing via Kong</p>
         <p><strong>Version:</strong> v2 — these are new changes</p>
-        <p class="muted">This message and the HTML layout were updated to make testing and visual verification easier.</p>
+        <p class="muted">This message will display html and the HTML layout were updated to make testing and visual verification easier.</p>
         <a class="btn" href="/" role="button">Refresh</a>
       </div>
     </section>
